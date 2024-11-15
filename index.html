@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hellaw naw</title>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General body and layout styling */
+        body {
+            margin: 0;
+            font-family: 'Karla', sans-serif;
+            background-color: violet;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        #container {
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* Slideshow Container */
+        #slideshow {
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Slideshow Image Styling (Centering images with 1:1 ratio) */
+        #slideshow img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        #slideshow img.active {
+            opacity: 1;
+        }
+
+        /* Buttons Styling */
+        button {
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            outline: none;
+        }
+
+        /* 'Yes' Button with bounce animation and gradient background */
+        #yes-btn {
+            background: linear-gradient(145deg, #28a745, #218838);
+            animation: bounce 1s infinite alternate;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        #yes-btn:hover {
+            background: linear-gradient(145deg, #218838, #28a745);
+            transform: scale(1.05);
+        }
+
+        /* 'No' Button */
+        #no-btn {
+            background-color: #dc3545;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        #no-btn:hover, #no-btn:focus {
+            background-color: #c82333;
+        }
+
+        /* Content that shows after clicking */
+        #content {
+            display: none;
+            margin-top: 20px;
+            transition: all 0.5s ease;
+        }
+
+        /* Confetti Canvas */
+        #confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        /* No-content message on "No" button click */
+        #no-content {
+            font-size: 32px;
+            color: red;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Below text styling */
+        #below-text {
+            font-size: 24px;
+            color: gray;
+            font-weight: bold;
+        }
+
+        /* Bounce Animation for Yes Button */
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            #slideshow {
+                max-width: 100%;
+                height: auto;
+            }
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <!-- Slideshow Section -->
+        <div id="slideshow">
+            <img src="images/image1.jpg" class="active" alt="Slide 1">
+            <img src="images/image2.jpg" alt="Slide 2">
+            <img src="images/image3.jpg" alt="Slide 3">
+            <img src="images/image4.jpg" alt="Slide 4">
+            <img src="images/image5.jpg" alt="Slide 5">
+        </div>
+
+        <!-- Text Below Slideshow -->
+        <p id="below-text">
+            HELLO NAWAF!!! i'm sorry that u have to deal w my mood swings constantly and how i'm unable to spend time with u irl pls forgive me
+        </p>
+
+        <!-- Buttons for user interaction -->
+        <button id="yes-btn">Yes</button>
+        <button id="no-btn">I'll slaughter you</button>
+
+        <!-- Content and Video Section (hidden initially) -->
+        <div id="content">
+            <video id="yes-video" width="600" controls style="display: none;">
+                <source src="video.mp4" type="video/mp4">
+                <p>Your browser does not support the video format.</p>
+            </video>
+            <div id="no-content" style="display: none;">
+                <p>HAHAAHAHHHAHAHAHAHAH FAGGOT ok no lysm frfr tho i made this when i was half asleep i thought it wld be silly</p>
+            </div>
+        </div>
+
+        <!-- Confetti Canvas for confetti effect -->
+        <canvas id="confetti"></canvas>
+    </div>
+
+    <script>
+        /* Slideshow Functionality */
+        let slides = document.querySelectorAll("#slideshow img");
+        let currentSlide = 0;
+
+        setInterval(() => {
+            slides[currentSlide].classList.remove("active");
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add("active");
+        }, 3000); // Slide every 3 seconds
+
+        /* Button Actions */
+        document.getElementById("yes-btn").addEventListener("click", () => {
+            // Show video and content
+            document.getElementById("content").style.display = "block";
+            document.getElementById("yes-video").style.display = "block";
+            document.getElementById("no-content").style.display = "block"; // Display "Better luck next time!" text
+            document.getElementById("yes-video").play(); // Ensure the video plays
+            launchConfetti();
+
+            // Hide initial elements after clicking "Yes"
+            document.getElementById("slideshow").style.display = "none";
+            document.getElementById("below-text").style.display = "none";
+            document.getElementById("yes-btn").style.display = "none";
+            document.getElementById("no-btn").style.display = "none";
+        });
+
+        document.getElementById("no-btn").addEventListener("click", () => {
+            makeYesButtonBigger();
+        });
+
+        /* Handle repeated clicks on "No" to enlarge the "Yes" button */
+        let noButtonClicks = 0;
+        function makeYesButtonBigger() {
+            noButtonClicks++;
+            let yesButton = document.getElementById("yes-btn");
+            if (noButtonClicks < 5) {
+                yesButton.style.fontSize = `${18 + (noButtonClicks * 4)}px`; // Increase font size gradually
+            } else {
+                yesButton.style.fontSize = '60px';
+                yesButton.style.transform = 'scale(2)';
+            }
+        }
+
+        /* Confetti Effect */
+        function launchConfetti() {
+            const confettiCanvas = document.getElementById("confetti");
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+            const confettiContext = confettiCanvas.getContext("2d");
+
+            const confettiPieces = [];
+            for (let i = 0; i < 200; i++) {
+                confettiPieces.push({
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+                    radius: Math.random() * 4 + 2, // Increased size range
+                    color: `hsl(${Math.random() * 360}, 70%, 50%)`,
+                    dx: Math.random() - 0.5,
+                    dy: Math.random() - 0.5,
+                    rotation: Math.random() * 360,
+                    rotationSpeed: Math.random() * 0.05
+                });
+            }
+
+            function drawConfetti() {
+                confettiContext.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+                confettiPieces.forEach(piece => {
+                    confettiContext.beginPath();
+                    confettiContext.arc(piece.x, piece.y, piece.radius, 0, Math.PI * 2);
+                    confettiContext.fillStyle = piece.color;
+                    confettiContext.fill();
+                    piece.x += piece.dx;
+                    piece.y += piece.dy;
+                    piece.rotation += piece.rotationSpeed;
+                    if (piece.x < 0) piece.x = window.innerWidth;
+                    if (piece.x > window.innerWidth) piece.x = 0;
+                    if (piece.y > window.innerHeight) piece.y = 0;
+                });
+                requestAnimationFrame(drawConfetti);
+            }
+            drawConfetti();
+        }
+    </script>
+</body>
+</html>
