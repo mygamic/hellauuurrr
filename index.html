@@ -48,7 +48,7 @@
   <div class="flex items-center justify-center h-screen relative">
     <div class="flex flex-col items-center p-4">
       <div class="audio-prompt" id="audioPrompt">
-        <p>hello i gave up on my work and made this for u</p>
+        <p>hlo i made this in my bed with a broken limb</p>
       </div>
       <img id="imageDisplay" src="./images/image1.jpg" alt="photo" class="rounded-md h-[300px]" style="object-fit: cover;" />
       <script>
@@ -67,7 +67,7 @@
           imageDisplay.src = imagePaths[currentIndex];
         }, 1000);
       </script>
-      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">HIIII NAWAF im so sorry that u have to keep dealing w my mood swings everyday and how im unable to spend time with u irl pls accept my apology</h2>
+      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">HIIII richard im so sorry u have to keep dealing with my extreme bad luck i know its very exhausting i really love u pls accept my apology :( </h2>
       <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
         <button id="yesButton"
           class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
@@ -132,7 +132,7 @@
     yesButton.addEventListener('click', () => {
       clearInterval(imageInterval);
       imageDisplay.src = './images/image6.jpg'; // Change to image6.jpg
-      valentineQuestion.textContent = "thank u ur the best i hope u have a great year ahead and happy early bday ur my fav twink ly"; // Change the question text
+      valentineQuestion.textContent = "thank u ur the best i promise i will make it all up to u one day ilysm pls forgive me it will all be worth in the end TRUST "; // Change the question text
       responseButtons.style.display = 'none'; // Hide both buttons
       startFileSong(); // Play the file.mp3 song
       confetti(); // Trigger confetti animation
